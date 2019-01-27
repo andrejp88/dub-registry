@@ -431,10 +431,13 @@ class DubRegistry {
 
 	void updatePackages()
 	{
+		import std.random : randomShuffle;
 		logDiagnostic("Triggering package update...");
 		// update stat distributions before score packages
 		m_statDistributions = m_db.getStatDistributions();
-		foreach (packname; this.availablePackages)
+		auto allpacks = this.availablePackages.array;
+		randomShuffle(allpacks);
+		foreach (packname; allpacks)
 			triggerPackageUpdate(packname);
 	}
 
